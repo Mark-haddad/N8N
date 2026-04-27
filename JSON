@@ -1,0 +1,539 @@
+{
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -384,
+        -32
+      ],
+      "id": "7fafc268-41c7-41f6-8738-46f3fa125518",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://fake-json-api.mock.beeceptor.com/users",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -160,
+        -32
+      ],
+      "id": "3007d1b9-2230-47a0-9995-636a24816fc8",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "d2b7cf91-33d7-44de-964a-05152fcec534",
+              "leftValue": "={{$json[\"email\"]}}",
+              "rightValue": "gmail.com",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        64,
+        -32
+      ],
+      "id": "5fa8dc8a-d588-419a-b9d6-d0a856be28d0",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3955036b-d08f-4106-80c2-2ccc272b542a",
+              "name": "Lead Type",
+              "value": "PRIORITY",
+              "type": "string"
+            },
+            {
+              "id": "3f4ff93c-b6c1-4524-aec6-89884b994fc7",
+              "name": "Full Name",
+              "value": "={{$json[\"name\"]}}",
+              "type": "string"
+            },
+            {
+              "id": "c1430592-6d40-4737-8398-cef39935c582",
+              "name": "Email",
+              "value": "={{$json[\"email\"]}}\n",
+              "type": "string"
+            },
+            {
+              "id": "f488c7d8-47c3-4262-9664-460bd78fb237",
+              "name": "Company",
+              "value": "={{$json[\"company\"]}}",
+              "type": "string"
+            },
+            {
+              "id": "90c5169c-ff32-4789-b55b-cdbc57c891b4",
+              "name": "Phone",
+              "value": "={{$json[\"phone\"]}}",
+              "type": "string"
+            },
+            {
+              "id": "bdbf8d09-0bc8-41f2-ab71-5103716a20c1",
+              "name": "Location",
+              "value": "={{$json[\"state\"] + \", \" + $json[\"country\"]}}",
+              "type": "string"
+            },
+            {
+              "id": "efa5d008-c378-4b03-b95c-97c63346dde9",
+              "name": "Note",
+              "value": "Gmail user — high response rate expected",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        288,
+        -128
+      ],
+      "id": "fec0ac62-e2a8-455b-aee2-a8d38afb3e17",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1IJjgrKc8ohj5li4-kRBg17k_TsIWwPM_nlRbXBFlqBU",
+          "mode": "list",
+          "cachedResultName": "Leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1IJjgrKc8ohj5li4-kRBg17k_TsIWwPM_nlRbXBFlqBU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1IJjgrKc8ohj5li4-kRBg17k_TsIWwPM_nlRbXBFlqBU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Lead Type": "={{$json[\"Lead Type\"]}}",
+            "Email": "={{$json[\"Email\"]}}",
+            "Full Name": "={{$json[\"Full Name\"]}}",
+            "Company": "={{$json[\"Company\"]}}",
+            "Phone": "={{$json[\"Phone\"]}}",
+            "Location": "={{$json[\"Location\"]}}",
+            "Note": "={{$json[\"Note\"]}}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Lead Type",
+              "displayName": "Lead Type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Full Name",
+              "displayName": "Full Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Company",
+              "displayName": "Company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Location",
+              "displayName": "Location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Note",
+              "displayName": "Note",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        512,
+        -128
+      ],
+      "id": "b6bbfa6c-0b15-4dcf-bb5a-9d8d143adf9c",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lu121mWNl5Z4JVDR",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "887afea4-0d02-4515-a706-3403e7830b30",
+              "name": "Lead Type",
+              "value": "STANDARD",
+              "type": "string"
+            },
+            {
+              "id": "9b3da2b3-824c-4f97-b246-f114138dcf87",
+              "name": "Full Name",
+              "value": "={{$json[\"name\"]}}",
+              "type": "string"
+            },
+            {
+              "id": "91daa867-c4a6-4006-8bc5-cb198c96e8b8",
+              "name": "=Email",
+              "value": "={{$json[\"email\"]}}",
+              "type": "string"
+            },
+            {
+              "id": "f3680780-e05f-4acc-91f7-43ca223308c0",
+              "name": "Company",
+              "value": "={{$json[\"company\"]}}",
+              "type": "string"
+            },
+            {
+              "id": "ad871e11-07f7-420a-af32-1db803ff5e0b",
+              "name": "Phone",
+              "value": "={{$json[\"phone\"]}}",
+              "type": "string"
+            },
+            {
+              "id": "5c892224-4ed6-4e52-8eff-6e4f8edea824",
+              "name": "Location",
+              "value": "={{$json[\"state\"] + \", \" + $json[\"country\"]}}",
+              "type": "string"
+            },
+            {
+              "id": "1b64d602-8ec6-44fe-8fcd-3107bf751530",
+              "name": "Note",
+              "value": "Non-Gmail — standard follow-up schedule",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        288,
+        64
+      ],
+      "id": "79997ff7-d090-4333-ad82-391cd917916e",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1IJjgrKc8ohj5li4-kRBg17k_TsIWwPM_nlRbXBFlqBU",
+          "mode": "list",
+          "cachedResultName": "Leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1IJjgrKc8ohj5li4-kRBg17k_TsIWwPM_nlRbXBFlqBU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1IJjgrKc8ohj5li4-kRBg17k_TsIWwPM_nlRbXBFlqBU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Lead Type": "={{$json[\"Lead Type\"]}}",
+            "Email": "={{$json[\"Email\"]}}",
+            "Full Name": "={{$json[\"Full Name\"]}}",
+            "Company": "={{$json[\"Company\"]}}",
+            "Phone": "={{$json[\"Phone\"]}}",
+            "Location": "={{$json[\"Location\"]}}",
+            "Note": "={{$json[\"Note\"]}}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Lead Type",
+              "displayName": "Lead Type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Full Name",
+              "displayName": "Full Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Company",
+              "displayName": "Company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Location",
+              "displayName": "Location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Note",
+              "displayName": "Note",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        512,
+        64
+      ],
+      "id": "d106a47e-2944-4311-a577-baefdac85416",
+      "name": "Append row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lu121mWNl5Z4JVDR",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "Edit Fields1": [
+      {
+        "Lead Type": "STANDARD",
+        "Full Name": "Piper Faker Attribute Error: person.astName is not supported",
+        "Email": "Laurianne.Watsica25@hotmail.com",
+        "Company": "Hartmann - Herzog",
+        "Phone": "228-838-5619 x12608",
+        "Location": "Oklahoma, Guam",
+        "Note": "Non-Gmail — standard follow-up schedule"
+      },
+      {
+        "Lead Type": "STANDARD",
+        "Full Name": "Amina Abernathy",
+        "Email": "Gayle.Kuhic@yahoo.com",
+        "Company": "Gutmann Group",
+        "Phone": "490.424.4116 x04837",
+        "Location": "Alaska, Mauritania",
+        "Note": "Non-Gmail — standard follow-up schedule"
+      },
+      {
+        "Lead Type": "STANDARD",
+        "Full Name": "Kristofer Jacobson",
+        "Email": "Christiana_Conn@hotmail.com",
+        "Company": "Wintheiser - Stiedemann",
+        "Phone": "1-385-322-7884",
+        "Location": "Utah, New Zealand",
+        "Note": "Non-Gmail — standard follow-up schedule"
+      },
+      {
+        "Lead Type": "STANDARD",
+        "Full Name": "Jessika Daugherty",
+        "Email": "Wilber_Monahan51@hotmail.com",
+        "Company": "Okuneva, Corkery and Stokes",
+        "Phone": "354.995.0359",
+        "Location": "Rhode Island, Kiribati",
+        "Note": "Non-Gmail — standard follow-up schedule"
+      },
+      {
+        "Lead Type": "STANDARD",
+        "Full Name": "Michelle Hermann",
+        "Email": "Johnpaul_Donnelly76@yahoo.com",
+        "Company": "Carter, O&#x27;Kon and Hammes",
+        "Phone": "(379) 909-0914",
+        "Location": "North Carolina, Guernsey",
+        "Note": "Non-Gmail — standard follow-up schedule"
+      }
+    ]
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "a366b538dfd8980e4b3be66f6491d5a5ac84b7a30f3cba9c58d88380f08ef526"
+  }
+}
